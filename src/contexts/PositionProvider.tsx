@@ -1,8 +1,8 @@
 import React ,{useRef,useEffect,useState,useMemo} from 'react'
 import {css} from 'aphrodite/no-important'
 import PositionContext from './PositionContext'
-import useHandler from '@/hooks/useHandlers'
-import usePrevious from '@/hooks/usePreviious'
+import useHandler from '@/hooks/useHandler'
+import usePrevious from '@/hooks/usePrevious'
 import styles from './PositionProvider.styles'
 import listenResize from '@/utils/listenResize'
 
@@ -87,3 +87,5 @@ const PositionProvider:React.FC<Props> = ({children}) => {
         </PositionContext.Provider>
     )
 }
+
+export default PositionProvider

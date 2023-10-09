@@ -1,0 +1,15 @@
+function pad(number:number){
+    let result = String(number)
+    if(result.length < 2){
+        result = '0' + result
+    }
+    return result
+}
+
+export default function formatDuration(time:number){
+    if(!Number.isFinite(time)) return ''
+    time = Math.floor(time)
+    const seconds = time % 60
+    const minutes = Math.floor(time / 60)
+    return `${pad(minutes)}:${pad(seconds)}`
+}

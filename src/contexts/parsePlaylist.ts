@@ -1,4 +1,4 @@
-import {Quality, FormattedPlaySource, PlaySourceMap} from '@/types/player'
+import {Quality, FormattedPlaySource, PlaySourceMap} from '@/types'
 const QUALITY_ORDER:Quality[] = ['auto', 'ld', 'sd', 'hd', 'fhd']
 
 export const getQualities = (
@@ -21,7 +21,7 @@ export const getQualities = (
     return qualities
 }
 
-export const getSource = (
+export const getSources = (
     qualities: Quality [],
     sources: PlaySourceMap
 ):FormattedPlaySource [] =>{

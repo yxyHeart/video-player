@@ -1410,7 +1410,7 @@ isobject@^3.0.1:
   resolved "https://registry.npmmirror.com/isobject/-/isobject-3.0.1.tgz#4e431e92b11a9731636aa1f9c8d1ccbcfdab78df"
   integrity sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==
 
-isomorphic-bigscreen@2.0.5:
+isomorphic-bigscreen@2.0.5, isomorphic-bigscreen@^2.0.5:
   version "2.0.5"
   resolved "https://registry.npmmirror.com/isomorphic-bigscreen/-/isomorphic-bigscreen-2.0.5.tgz#4e842a761759307df5dedbef0c442e32bbd3474f"
   integrity sha512-Rt4mO9tAEa3MUFaf0/x0qeZ070IjYCLf8RzW4CdY54a3gyLxwjN0GfNtfWhDU2yRiW61L2JYhjn+sKcUmMiclg==

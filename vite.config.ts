@@ -8,7 +8,8 @@ export default defineConfig({
   resolve: {
     alias:{
       '@':resolve(__dirname,'./src'),
-      "message":resolve(__dirname,'./message')
+      "message":resolve(__dirname,'./message'),
+      "utils":resolve(__dirname,'./utils'),
       
     }
   },

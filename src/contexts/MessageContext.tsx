@@ -1,10 +1,12 @@
-import {
+import type {
     EVENTS,
     ActionParamsMap,
     EventParamsMap,
+} from 'message/src'
+import {
     createMessageHelper,
-} from 'message'
-import useHandler from '@/hooks/useHandlers'
+} from 'message/src'
+import useHandler from '@/hooks/useHandler'
 import React, {useLayoutEffect, useRef} from 'react'
 import EventEmitter from 'eventemitter3'
 
