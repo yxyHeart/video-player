@@ -1,6 +1,6 @@
 import {css} from 'aphrodite/no-important'
-import {ACTIONS, EVENTS} from 'message/src'
-import {ua} from 'utils/src'
+import {ACTIONS, EVENTS} from 'heart-message/src'
+import {ua} from 'heart-utils/src'
 import BigScreen from 'isomorphic-bigscreen'
 import React, {useContext, useEffect, useMemo, useRef, useState} from 'react'
 import {

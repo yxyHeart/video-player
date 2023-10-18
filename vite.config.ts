@@ -8,8 +8,10 @@ export default defineConfig({
   resolve: {
     alias:{
       '@':resolve(__dirname,'./src'),
-      "message":resolve(__dirname,'./message'),
-      "utils":resolve(__dirname,'./utils'),
+      "heart-message":resolve(__dirname,'./heart-message'),
+      "heart-utils":resolve(__dirname,'./heart-utils'),
+      "heart-hls":resolve(__dirname,'./heart-hls'),
+      "heart-mp4":resolve(__dirname,'./heart-mp4'),
       
     }
   },

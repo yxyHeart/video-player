@@ -8,8 +8,8 @@ import {
 } from '@/types'
 import VideoSourceContext from './VideoSourceContext'
 import { getQualities, getSources } from './parsePlaylist'
-import {EVENTS} from 'message/src'
-import {ua} from "utils/src"
+import {EVENTS} from 'heart-message/src'
+import {ua} from "heart-utils/src"
 import reverseArray from '@/utils/reverseArray'
 import useHandler from '@/hooks/useHandler'
 import useChanged from '@/hooks/useChanged'

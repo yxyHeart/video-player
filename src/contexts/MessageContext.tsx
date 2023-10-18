@@ -2,10 +2,10 @@ import type {
     EVENTS,
     ActionParamsMap,
     EventParamsMap,
-} from 'message/src'
+} from 'heart-message/src'
 import {
     createMessageHelper,
-} from 'message/src'
+} from 'heart-message/src'
 import useHandler from '@/hooks/useHandler'
 import React, {useLayoutEffect, useRef} from 'react'
 import EventEmitter from 'eventemitter3'
