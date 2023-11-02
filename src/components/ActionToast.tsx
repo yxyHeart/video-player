@@ -24,10 +24,10 @@ export const ActionToastDispatchContext = createContext<ActionToastDispatch>(
 export const useActionToastDispatch = ()=> useContext(ActionToastDispatchContext)
 
 // 操作反馈提示（主要提示用户热键或者鼠标操作的结果）
-export const ActionToastProvider:React.FC= ({children})=>{
+export const ActionToastProvider:React.FC<{children:React.ReactNode}>= ({children})=>{
     const [state, setState] = useState<InternalState>()
     const lastKey = useRef(0)
-    const dispatch = useCallback((state)=>{
+    const dispatch = useCallback((state:State)=>{
         // 每一次设定必定是创建一个新的提示，key 的变化让元素重新 mount，CSS 动画得以执行
         lastKey.current += 1
         setState({...state,key:String(lastKey.current)})

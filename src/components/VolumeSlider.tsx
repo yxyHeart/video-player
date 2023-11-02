@@ -21,3 +21,5 @@ const VolumeSlider:React.FC<VolumeSliderProps> = (props)=>{
         </div>
     )
 }
+
+export default VolumeSlider

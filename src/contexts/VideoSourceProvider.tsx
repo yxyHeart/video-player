@@ -8,8 +8,8 @@ import {
 } from '@/types'
 import VideoSourceContext from './VideoSourceContext'
 import { getQualities, getSources } from './parsePlaylist'
-import {EVENTS} from 'heart-message/src'
-import {ua} from "heart-utils/src"
+import {EVENTS} from 'heart-message'
+import {ua} from "heart-utils"
 import reverseArray from '@/utils/reverseArray'
 import useHandler from '@/hooks/useHandler'
 import useChanged from '@/hooks/useChanged'
@@ -25,6 +25,7 @@ type VideoSourceProviderProps = {
     useAutoQuality?:boolean
     playbackRates:PlaybackRate[]
     defaultPlaybackRate?:PlaybackRate
+    children:React.ReactNode
 }
 
 const VideoSourceProvider:React.FC<VideoSourceProviderProps> = ({

@@ -10,8 +10,8 @@ export type VideoSourceContextValue = {
     setCurrentQuality:(x:Quality)=>void
     currentQuality:Quality
     // 播放速速
-    playbackRate:PlaybackRate[]
-    setCurrentPlaybackRat:(x:PlaybackRate)=>void
+    playbackRates:PlaybackRate[]
+    setCurrentPlaybackRate:(x:PlaybackRate)=>void
     currentPlaybackRate:PlaybackRate
 
 }

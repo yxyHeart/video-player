@@ -1,6 +1,6 @@
 export type Interval = [number,number]
 
-export type ImeOffsetInterval = {
+export type TimeOffsetInterval = {
     offsetInterVal: Interval
     timeInterVal: Interval
 }

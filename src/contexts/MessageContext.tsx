@@ -2,10 +2,10 @@ import type {
     EVENTS,
     ActionParamsMap,
     EventParamsMap,
-} from 'heart-message/src'
+} from 'heart-message'
 import {
     createMessageHelper,
-} from 'heart-message/src'
+} from 'heart-message'
 import useHandler from '@/hooks/useHandler'
 import React, {useLayoutEffect, useRef} from 'react'
 import EventEmitter from 'eventemitter3'
@@ -23,7 +23,7 @@ export interface MessageContextValue {
         eventName:T,
         handler:EventParamsMap[T]
     )=>Subscription
-    dispatchAtion:<T extends keyof ActionParamsMap>(
+    dispatchAction:<T extends keyof ActionParamsMap>(
         actionName:T,
         ...data:Parameters<ActionParamsMap[T]>
     )=>void
@@ -59,8 +59,9 @@ type MessageProviderProps = {
     targetOrigin:string
     enableCrossWindow?:boolean
     onEvent?:(name:EVENTS, data?:unknown)=>void
-    dispatchRef?:React.MutableRefObject<MessageContextValue['dispatchAtion'] | void>
+    dispatchRef?:React.MutableRefObject<MessageContextValue['dispatchAction'] | void>
     messageContextRef?:MessageContextRef
+    children:React.ReactNode
 }
 
 type MessageHelper = ReturnType<typeof createMessageHelper>
@@ -157,27 +158,47 @@ export class MessageProvider extends React.PureComponent<MessageProviderProps>{
         }
     }
 
-    dispatchAction:MessageContextValue['dispatchAtion'] = (
+    subscribeAction:InternalMessageContextValue['subscribeAction'] = (
         actionName,
-        data?
+        listener
     ) =>{
-        this.emitter.emit(actionName,{__type__:ACTION_TYPE, data})
+        const realListener = ({__type__, data}:any)=>{
+            if(__type__ === ACTION_TYPE){
+                listener(data)
+            }
+        }
+        this.emitter.on(actionName, realListener)
+
+        return {
+            unsubscribe:()=>this.emitter.off(actionName, realListener)
+        }
     }
 
-    subscribeAction:MessageContextValue['dispatchAtion'] = (
+    dispatchAction:MessageContextValue['dispatchAction'] = (
         actionName,
         data?
     )=>{
         this.emitter.emit(actionName,{__type__:ACTION_TYPE, data})
     }
 
-    internalContextValue = {
+    internalContextValue:InternalMessageContextValue = {
         emitEvent:this.emitEvent,
         subscribeAction:this.subscribeAction
     }
-    externalContextValue = {
+    externalContextValue:MessageContextValue = {
         dispatchAction:this.dispatchAction,
         subscribeEvent:this.subscribeEvent
+    }
+
+    render(){
+        return (
+            <InternalMessageContext.Provider value={this.internalContextValue} >
+                <MessageContext.Provider value={this.externalContextValue}>
+                    {this.props.children}
+                </MessageContext.Provider>
+
+            </InternalMessageContext.Provider>
+        )
     }
 }
 

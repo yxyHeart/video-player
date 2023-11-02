@@ -310,7 +310,7 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
 })
-export const hiddenOrShownStyle = StyleSheet.create({
+export const  hiddenOrShownStyle = StyleSheet.create({
   base: {
     transition: `opacity .5s ease-in-out, visibility .5s ease-in-out`,
   },

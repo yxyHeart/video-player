@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useEffect, useMemo, useRef} from 'react'
-import {EVENTS} from 'heart-message/src'
-import { type DOMEventParams } from 'heart-message/src'
+import {EVENTS} from 'heart-message'
+import { type DOMEventParams } from 'heart-message'
 import { InternalMessageContext } from '@/contexts/MessageContext'
 import ObjectFitContext from '@/contexts/ObjectFitContext'
 import PositionContext from '@/contexts/PositionContext'

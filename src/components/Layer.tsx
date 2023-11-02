@@ -18,7 +18,7 @@ const getImageClassName = (isFullWidth:boolean)=>{
     )
 }
 
-const Positioned:React.FC = ({children}) =>{
+const Positioned:React.FC<{children:React.ReactNode}> = ({children}) =>{
     const { isFullWidth, helperImageSrc } = useContext(PositionContext)
 
     if(helperImageSrc){
@@ -34,7 +34,7 @@ const Positioned:React.FC = ({children}) =>{
     return null
 }
 
-const Layer:React.FC = ({children})=>{
+const Layer:React.FC<{children:React.ReactNode}> = ({children})=>{
     const { objectFit} = useContext(ObjectFitContext)
     if(children){
         const layer = <div className={css(styles.layer)}>{children}</div>

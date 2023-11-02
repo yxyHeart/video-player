@@ -3,7 +3,7 @@ import ObjectFitContext, {ObjectFit} from './ObjectFitContext'
 
 type Props = {
     initialObjectFit?:ObjectFit
-
+    children:React.ReactNode
 }
 
 const ObjectFitProvider: React.FC<Props> = ({

@@ -8,7 +8,8 @@ import listenResize from '@/utils/listenResize'
 
 
 type Props = {
-    shouldOBserveResize?:true
+    shouldObserveResize?:boolean
+    children:React.ReactNode
 }
 
 type VideoSize = {
