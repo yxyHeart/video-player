@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "antd": "^5.11.1",
     "eventemitter3": "^5.0.1",
     "fs": "^0.0.1-security",
     "griffith": "^1.30.0",
@@ -19,7 +20,8 @@
     "js-binary": "^1.2.0",
     "niplayer": "^1.4.6",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.18.0"
   },
   "devDependencies": {
     "@types/node": "^20.7.1",

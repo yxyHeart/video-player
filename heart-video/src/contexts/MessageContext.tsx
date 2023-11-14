@@ -1,4 +1,4 @@
-import type {
+import {
     EVENTS,
     ActionParamsMap,
     EventParamsMap,
@@ -99,21 +99,29 @@ export class MessageProvider extends React.PureComponent<MessageProviderProps>{
         targetOrigin:'*'
     }
     emitter:EventEmitter
-    crossWindfowMessager:MessageHelper
+    crossWindowMessager:MessageHelper
 
     constructor(props:MessageProviderProps){
         super(props)
         this.emitter = new EventEmitter()
         const {id, targetOrigin} = this.props
-        this.crossWindfowMessager = createMessageHelper(id, targetOrigin)
+        this.crossWindowMessager = createMessageHelper(id, targetOrigin)
 
         if(this.props.dispatchRef){
             this.props.dispatchRef.current = this.externalContextValue.dispatchAction
         }
+
+        if(this.props.messageContextRef){
+            this.props.messageContextRef.current = this.externalContextValue
+        }
+
+        void Promise.resolve().then(()=>{
+            this.emitEvent(EVENTS.SUBSCRIPTION_READY)
+        })
     }
     componentDidMount(): void {
         if(this.props.enableCrossWindow){
-            this.crossWindfowMessager.subscribeMessage((name,data)=>{
+            this.crossWindowMessager.subscribeMessage((name,data)=>{
                 this.dispatchAction(name as any, data as any)
             })
         }
@@ -126,7 +134,7 @@ export class MessageProvider extends React.PureComponent<MessageProviderProps>{
         if(this.props.messageContextRef){
             this.props.messageContextRef.current = undefined
         }
-        this.crossWindfowMessager.dispose()
+        this.crossWindowMessager.dispose()
         this.emitter.removeAllListeners()
     }
 
@@ -134,7 +142,7 @@ export class MessageProvider extends React.PureComponent<MessageProviderProps>{
         this.emitter.emit(eventName,{__type__:EVENT_TYPE,data})
         this.props.onEvent?.(eventName,data)
         if(this.props.enableCrossWindow){
-            this.crossWindfowMessager.dispatchMessage(
+            this.crossWindowMessager.dispatchMessage(
                 window.parent,
                 eventName as any,
                 data as any

@@ -11,6 +11,7 @@ const PlayButtonItem:React.FC<{
     <ControllerTooltip localeKey={isPlaying?'pause':'play'} hotkey='k'>
         <ControllerButton
             icon={isPlaying?icons.pause:icons.play}
+            onClick={onClick}
         >
         </ControllerButton>
     </ControllerTooltip>

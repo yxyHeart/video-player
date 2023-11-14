@@ -1,9 +1,9 @@
 import React, {useCallback, useContext, useEffect, useMemo, useRef} from 'react'
 import {EVENTS} from 'heart-message'
 import { type DOMEventParams } from 'heart-message'
-import { InternalMessageContext } from '@/contexts/MessageContext'
-import ObjectFitContext from '@/contexts/ObjectFitContext'
-import PositionContext from '@/contexts/PositionContext'
+import { InternalMessageContext } from '../contexts/MessageContext'
+import ObjectFitContext from '../contexts/ObjectFitContext'
+import PositionContext from '../contexts/PositionContext'
 
 
 type AnyFunction = (...args:any[])=>void
@@ -53,6 +53,7 @@ const VideoWithMessage = React.forwardRef<
     HTMLVideoElement,
     VideoWithMessageProps
 >((props, ref)=>{
+
     const { updateVideoSize } = useContext(PositionContext)
     const { objectFit } = useContext(ObjectFitContext)
     const { emitEvent } = useContext(InternalMessageContext)

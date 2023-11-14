@@ -1,2 +1,2 @@
 import React, {Component} from 'react'
-import {ua} from "heart-utils/src"
+import {ua} from "heart-utils"

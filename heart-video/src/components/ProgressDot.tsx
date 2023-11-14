@@ -1,7 +1,7 @@
 import React, {useRef} from 'react'
 import {css} from 'aphrodite/no-important'
 import { type ProgressDot as ProgressDotType} from '../types'
-import formatPercent from '@/utils/formatPercent'
+import formatPercent from '../utils/formatPercent'
 import styles from './ProgressDot.styles'
 
 interface SharedProps {

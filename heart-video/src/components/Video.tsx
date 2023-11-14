@@ -2,11 +2,12 @@ import React, {Component} from 'react'
 import {css} from 'aphrodite/no-important'
 import {EVENTS} from 'heart-message'
 import {logger,ua} from 'heart-utils'
-import { PlaybackRate, Quality, PlaySource, ProgressValue } from '@/types'
-import VideoSourceContext from '@/contexts/VideoSourceContext'
+import { PlaybackRate, Quality, PlaySource, ProgressValue } from '../types'
+import VideoSourceContext from '../contexts/VideoSourceContext'
 import VideoWithMessage, {VideoComponentType} from './VideoWithMessage'
 import selectVideo from './selectVideo'
 import styles from './Video.styles'
+
 
 const {isMobile} = ua
 
@@ -97,6 +98,25 @@ class Video extends Component<VideoProps>{
                 })
             }
         }
+        if(
+            paused !== prevProps.paused &&
+            this.root && 
+            paused !== this.root.paused
+        ){
+            if(paused){
+                this.pause()
+            }else{
+                this.play()
+            }
+        }
+
+        if (this.root && this.root.volume !== volume ** 2 && !isMobile) {
+            this.root.volume = volume ** 2
+        }
+
+        if (prevProps.currentPlaybackRate.value !== currentPlaybackRate.value) {
+            this.setRate(currentPlaybackRate)
+        }
     }
 
     pending(action:any){
@@ -125,7 +145,7 @@ class Video extends Component<VideoProps>{
             action.paused !== this.root.paused
         ){
             if(action.paused){
-                this.paused()
+                this.pause()
             }else{
                 this.play()
             }
@@ -171,11 +191,12 @@ class Video extends Component<VideoProps>{
 
     }
 
-    paused(){
+    pause(){
         if(!isMobile && !this.isMetadataLoaded){
             this.pending({paused:true})
             return
         }
+        this.safeExecute(()=>this.root!.pause())
     }
 
     seek(currentTime:number){
@@ -192,6 +213,7 @@ class Video extends Component<VideoProps>{
     }
 
     handleMetadataLoaded = ()=>{
+        
         this.isMetadataLoaded = true
         this.applyPendingAction()
         if(this.isSwitchDefinition){

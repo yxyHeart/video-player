@@ -22,13 +22,14 @@
 
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*":["./src/*"],
+      "heart-video": ["./heart-video/src/index.ts"],
       "heart-mp4": ["./heart-mp4/src/index.ts"],
       "heart-hls": ["./heart-hls/src/index.ts"],
       "heart-utils": ["./heart-utils/src/index.ts"],
       "heart-message": ["./heart-message/src/index.ts"],
     },
   },
-  "include": ["./src", "./types/*.d.ts","./heart-mp4", "./heart-hls","./heart-utils", "./heart-message" ],
+  "include": ["./src", "./types/*.d.ts", "heart-video", "./heart-mp4", "./heart-hls","./heart-utils", "./heart-message" ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -19,8 +19,9 @@ export default class VideoComponent extends Component<VideoProps>{
     video:HTMLVideoElement | null = null
     manuallyBuildAdaptiveM3U8Blob = false
     hasLoadStarted = false
-
+    
     componentDidMount(): void {
+        
         const {src, sources, useAutoQuality} = this.props
         this.hls = new Hls({autoStartLoad:false})
         this.hls.attachMedia(this.video!)

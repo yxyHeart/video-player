@@ -5,16 +5,16 @@ import {
     RealQuality,
     Quality,
     QualityOrder
-} from '@/types'
+} from '../types'
 import VideoSourceContext from './VideoSourceContext'
 import { getQualities, getSources } from './parsePlaylist'
 import {EVENTS} from 'heart-message'
 import {ua} from "heart-utils"
-import reverseArray from '@/utils/reverseArray'
-import useHandler from '@/hooks/useHandler'
-import useChanged from '@/hooks/useChanged'
+import reverseArray from '../utils/reverseArray'
+import useHandler from '../hooks/useHandler'
+import useChanged from '../hooks/useChanged'
 import { InternalMessageContext } from './MessageContext'
-import usePrevious from '@/hooks/usePrevious'
+import usePrevious from '../hooks/usePrevious'
 
 const {isMobile} = ua
 

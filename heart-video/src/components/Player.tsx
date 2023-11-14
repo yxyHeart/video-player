@@ -7,22 +7,22 @@ import {
   defaultLocale,
   LocaleCode,
   PartialLocaleConfigMap,
-} from '@/constants/locales'
-import LocaleProvider from '@/contexts/LocaleProvider'
+} from '../constants/locales'
+import LocaleProvider from '../contexts/LocaleProvider'
 import {
   InternalMessageContext,
   MessageContextValue,
   MessageProvider,
-} from '@/contexts/MessageContext'
-import ObjectFitContext, {ObjectFit} from '@/contexts/ObjectFitContext'
-import ObjectFitProvider from '@/contexts/ObjectFitProvider'
-import PositionProvider from '@/contexts/PositionProvider'
-import VideoSourceContext from '@/contexts/VideoSourceContext'
-import VideoSourceProvider from '@/contexts/VideoSourceProvider'
-import useBoolean from '@/hooks/useBoolean'
-import useHandler from '@/hooks/useHandler'
-import useMount from '@/hooks/useMount'
-import usePrevious from '@/hooks/usePrevious'
+} from '../contexts/MessageContext'
+import ObjectFitContext, {ObjectFit} from '../contexts/ObjectFitContext'
+import ObjectFitProvider from '../contexts/ObjectFitProvider'
+import PositionProvider from '../contexts/PositionProvider'
+import VideoSourceContext from '../contexts/VideoSourceContext'
+import VideoSourceProvider from '../contexts/VideoSourceProvider'
+import useBoolean from '../hooks/useBoolean'
+import useHandler from '../hooks/useHandler'
+import useMount from '../hooks/useMount'
+import usePrevious from '../hooks/usePrevious'
 import {
   PlaybackRate,
   PlaySourceMap,
@@ -31,10 +31,10 @@ import {
   RealQuality,
   QualityOrder,
 } from '../types'
-import formatDuration from '@/utils/formatDuration'
-import getBufferedTime from '@/utils/getBufferedTime'
-import Pip from '@/utils/pip'
-import storage from '@/utils/storage'
+import formatDuration from '../utils/formatDuration'
+import getBufferedTime from '../utils/getBufferedTime'
+import Pip from '../utils/pip'
+import storage from '../utils/storage'
 import {
     ActionToastOutlet,
     ActionToastProvider,
@@ -150,13 +150,13 @@ const InnerPlayer:React.FC<InnerPlayerProps> = ({
   }>()
   const actionToastDispatch = useActionToastDispatch()
   const [buffered, setBuffered] = useState<ProgressValue []>([])
-  const [volume, setVolume] = useState(0)
+  const [volume, setVolume] = useState(0.5)
   const [duration, setDuration] = useState(durationProp)
   const [currentTime, setCurrentTime] = useState(0)
   const [isDataLoaded, isDataLoadedSwitch] = useBoolean()
   const [isPlaying, isPlayingSwitch] = useBoolean()
   // 开始播放的时候设置为 true，播放中途暂停仍然为 true，直到播放到最后停止的时候才会变成 false
-  const [isPlaybackStarted, isPlaybackStartedSwith] = useBoolean()
+  const [isPlaybackStarted, isPlaybackStartedSwitch] = useBoolean()
   // 用户第一次播放之后设置为 false，并且之后永远为 false
   const [isNeverPlayed, isNeverPlayedSwitch] = useBoolean(true)
   const [isControllerShown, isControllerShownSwitch] = useBoolean()
@@ -217,7 +217,7 @@ const InnerPlayer:React.FC<InnerPlayerProps> = ({
       )
     }
     // 非播放中：播放结束时展示 Controller（未播放时不展示）
-    return currentTime!=0
+    return currentTime!==0
   })()
 
   useEffect(()=>{
@@ -270,27 +270,35 @@ const InnerPlayer:React.FC<InnerPlayerProps> = ({
   }
 
   const handlePlay = useHandler(()=>{
-    
+
     emitEvent(EVENTS.REQUEST_PLAY)
-    Promise.resolve(onBeforePlay?.(currentSrc))
+
+    Promise.resolve((()=>{
+
+      onBeforePlay?.(currentSrc)
+      })())
       .then(()=>{
         if(!isPlaybackStarted){
-          
+
           emitEvent(EVENTS.PLAY_COUNT)
-          isPlaybackStartedSwith.on()
+          isPlaybackStartedSwitch.on()
           if(!isDataLoaded){
+
             isLoadingSwitch.on()
           }
           // workaround a bug in IE about replaying a video.
           if(ua.isIE && currentTime !== 0){
+            
             handleSeek(0)
           }
         }
+
         isPlayingSwitch.on()
         isNeverPlayedSwitch.off()
-        
+
       })
       .catch(()=>{
+
         emitEvent(EVENTS.PLAY_REJECTED)
         // 播放被取消
       })
@@ -298,10 +306,11 @@ const InnerPlayer:React.FC<InnerPlayerProps> = ({
 
   const handlePause = useHandler(()=>{
     emitEvent(EVENTS.REQUEST_PAUSE)
-    isPlayingSwitch.on()
+    isPlayingSwitch.off()
   })
-
+  
   const handleVideoPlay = () =>{
+    
     if(!isPlaying){
       isPlayingSwitch.on()
     }
@@ -314,7 +323,7 @@ const InnerPlayer:React.FC<InnerPlayerProps> = ({
   }
 
   const handleVideoEnded = ()=>{
-    isPlaybackStartedSwith.off()
+    isPlaybackStartedSwitch.off()
     isPlayingSwitch.off()
     isLoadingSwitch.off()
   }
@@ -332,11 +341,11 @@ const InnerPlayer:React.FC<InnerPlayerProps> = ({
     setDuration(duration)
   }
 
-  const handleVideoTimeUpdate = (curentTime:number)=>{
+  const handleVideoTimeUpdate = (currentTime:number)=>{
     if(isLoading || isSeekingRef.current){
       return 
     }
-    setCurrentTime(curentTime)
+    setCurrentTime(currentTime)
   }
 
   const handleVideoVolumeChange = useHandler((volume:number)=>{
@@ -511,8 +520,8 @@ const InnerPlayer:React.FC<InnerPlayerProps> = ({
     [buffered, currentTime]
   )
 
-  const videoDateLoaded = !isLoading || currentTime!==0
-  const renderController = videoDateLoaded && isPlaybackStarted
+  const videoDataLoaded = !isLoading || currentTime!==0
+  const renderController = videoDataLoaded && isPlaybackStarted
 
   const controlsOverlay = !ua.isMobile && (
     <div className={css(styles.overlay,isNeverPlayed && styles.overlayMask)}>
@@ -522,6 +531,7 @@ const InnerPlayer:React.FC<InnerPlayerProps> = ({
         </div>
       )}
       <div
+        
         className={css(styles.backdrop)}
         onTouchStart={(event)=>{
           // prevent touch to toggle
@@ -535,7 +545,7 @@ const InnerPlayer:React.FC<InnerPlayerProps> = ({
         </div>
       )}
       {/*首帧已加载完成时展示 MinimalTimeline 组件*/}
-      {!hiddenTimeline && isPlaying && videoDateLoaded && (
+      {!hiddenTimeline && isPlaying && videoDataLoaded && (
         <div 
           className={css(
             hiddenOrShownStyle.base,

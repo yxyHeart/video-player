@@ -39,7 +39,7 @@ const ControllerTooltip:React.FC<Props> = ({localeKey,hotkey,children})=>{
                 )}
             >
                 {text}
-                {hotkey && `${hotkey}`}
+                {hotkey && `(${hotkey})`}
             </div>
 
         )}

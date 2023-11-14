@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import {css} from 'aphrodite/no-important'
 import clamp from 'lodash/clamp'
-import {ProgressDot} from '@/types'
-import PlayButtonItem from '@/components/items/PlayButtonItem'
-import TimelineItem from '@/components/items/TimelineItem'
+import {ProgressDot} from '../types'
+import PlayButtonItem from './items/PlayButtonItem'
+import TimelineItem from './items/TimelineItem'
 import CombinedTimeItem from './items/CombinedTimeItem'
 import QualityMenuItem from './items/QualityMenuItem'
 import VolumeItem from './items/VolumeItem'
@@ -114,7 +114,7 @@ function Controller(props:ControllerProps){
         setSlideTime(void 0)
     })
 
-    const displayCurrentTime = slideTime || currentTime
+    const displayedCurrentTime = slideTime || currentTime
 
     return (
         <div className={css(styles.root)}>
@@ -144,7 +144,7 @@ function Controller(props:ControllerProps){
                     {!hiddenTime && (
                         <CombinedTimeItem
                             isFullScreen={isFullScreen}
-                            currentTime={displayCurrentTime}
+                            currentTime={displayedCurrentTime}
                             duration={duration}
                         />
                     )}

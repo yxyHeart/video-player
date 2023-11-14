@@ -326,4 +326,4 @@ export type Mp4BoxTree = {
         }
       }
     }
-  }
+}

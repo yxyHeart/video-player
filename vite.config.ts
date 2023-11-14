@@ -12,7 +12,7 @@ export default defineConfig({
       "heart-utils":resolve(__dirname,'./heart-utils/src/index.ts'),
       "heart-hls":resolve(__dirname,'./heart-hls/src/index.ts'),
       "heart-mp4":resolve(__dirname,'./heart-mp4/src/index.ts'),
-      
+      "heart-video":resolve(__dirname,'./heart-video/src/index.ts'),
     }
   },
 })
