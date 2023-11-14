@@ -1,4 +1,4 @@
-import Player from 'griffith'
+import Player from 'heart-video'
 import VideoSwitch from '@/components/VideoSwitch';
 import { useEffect, useState } from 'react';
 

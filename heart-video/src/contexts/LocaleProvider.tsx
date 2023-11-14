@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react'
 import LocaleContext from './LocaleContext'
-import locales, {LocaleCode, PartialLocaleConfigMap} from '@/constants/locales'
+import locales, {LocaleCode, PartialLocaleConfigMap} from '../constants/locales'
 
 const getLocaleConfig = (
     locale:LocaleCode,

@@ -4,7 +4,7 @@ import VolumeSlider, {VolumeSliderProps} from '../VolumeSlider'
 import * as icons from '../icons/controller'
 import styles from '../Controller.styles'
 import ControllerButton from './ControllerButton'
-import { useLocaleText } from '@/contexts/LocaleContext'
+import { useLocaleText } from '../../contexts/LocaleContext'
 
 type VolumeItemProps = Pick<
     React.HTMLProps<HTMLDivElement>,

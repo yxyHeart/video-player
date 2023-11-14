@@ -1,14 +1,14 @@
 import React, {useEffect, useRef} from 'react'
 import {css, StyleDeclarationMap} from 'aphrodite/no-important'
 import clamp from 'lodash/clamp'
-import { type ProgressDot as ProgressDotType } from '@/types'
+import { type ProgressDot as ProgressDotType } from '../types'
 import ProgressDot, {ProgressDotsProps} from './ProgressDot'
 import styles, {
     horizontal as horizontalStyles,
     vertical as verticalStyles,
   } from './Slider.styles'
-import useHandler from '@/hooks/useHandler'
-import useSetState from '@/hooks/useSetState'
+import useHandler from '../hooks/useHandler'
+import useSetState from '../hooks/useSetState'
 
 type SlideStyle = typeof horizontalStyles & typeof verticalStyles // & {thumbSliding: unknown}
 type OwnStyleKey = keyof SlideStyle

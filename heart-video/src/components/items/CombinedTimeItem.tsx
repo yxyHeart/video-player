@@ -1,6 +1,6 @@
 import React from "react";
 import {css} from 'aphrodite/no-important'
-import formatDuration from "@/utils/formatDuration";
+import formatDuration from "../../utils/formatDuration";
 import styles from '../Controller.styles'
 
 

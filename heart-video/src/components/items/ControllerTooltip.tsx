@@ -1,9 +1,9 @@
 import {css} from 'aphrodite/no-important'
 import React, {cloneElement} from 'react'
-import { LocaleConfigKey } from '@/constants/locales'
-import { useLocaleText } from '@/contexts/LocaleContext'
-import useBoolean from '@/hooks/useBoolean'
-import styles from '@/components/Controller.styles'
+import { LocaleConfigKey } from '../../constants/locales'
+import { useLocaleText } from '../../contexts/LocaleContext'
+import useBoolean from '../../hooks/useBoolean'
+import styles from '../Controller.styles'
 
 type Props = {
     localeKey:LocaleConfigKey

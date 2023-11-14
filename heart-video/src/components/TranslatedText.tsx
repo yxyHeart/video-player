@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import { useLocaleText } from '@/contexts/LocaleContext'
+import { useLocaleText } from '../contexts/LocaleContext'
 
 const TranslatedText:React.FC<{
     name:Parameters<typeof useLocaleText>[0]

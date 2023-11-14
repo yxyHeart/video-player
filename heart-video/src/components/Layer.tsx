@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import {css} from 'aphrodite/no-important'
-import PositionContext from '@/contexts/PositionContext'
-import ObjectFitContext from '@/contexts/ObjectFitContext'
+import PositionContext from '../contexts/PositionContext'
+import ObjectFitContext from '../contexts/ObjectFitContext'
 import styles from './Layer.styles'
 
 const getContainerClassName = (isFullWidth:boolean) =>{

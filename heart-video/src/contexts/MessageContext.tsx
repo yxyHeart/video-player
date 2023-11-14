@@ -6,7 +6,7 @@ import {
 import {
     createMessageHelper,
 } from 'heart-message'
-import useHandler from '@/hooks/useHandler'
+import useHandler from '../hooks/useHandler'
 import React, {useLayoutEffect, useRef} from 'react'
 import EventEmitter from 'eventemitter3'
 

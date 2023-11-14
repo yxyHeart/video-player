@@ -1,5 +1,5 @@
 import React from 'react'
-import {PlaySource, Quality, PlaybackRate} from '@/types'
+import {PlaySource, Quality, PlaybackRate} from '../types'
 
 export type VideoSourceContextValue = {
     currentSrc:string

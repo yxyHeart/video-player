@@ -1,10 +1,10 @@
 import React ,{useRef,useEffect,useState,useMemo} from 'react'
 import {css} from 'aphrodite/no-important'
 import PositionContext from './PositionContext'
-import useHandler from '@/hooks/useHandler'
-import usePrevious from '@/hooks/usePrevious'
+import useHandler from '../hooks/useHandler'
+import usePrevious from '../hooks/usePrevious'
 import styles from './PositionProvider.styles'
-import listenResize from '@/utils/listenResize'
+import listenResize from '../utils/listenResize'
 
 
 type Props = {
