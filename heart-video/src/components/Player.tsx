@@ -628,6 +628,43 @@ const InnerPlayer:React.FC<InnerPlayerProps> = ({
 
     </div>
   )
+  
+  const [isHorizontal,setIsHorizontal] = useBoolean(true)
+  const videoHeight = useRef<number>(0)
+  const videoWidth = useRef<number>(0)
+  useEffect(()=>{
+    if(videoRef.current!==undefined){
+      videoHeight.current = videoRef.current.root.clientHeight
+      videoWidth.current = videoRef.current.root.clientWidth
+    }
+  },[videoRef.current?.root])
+  useEffect(()=>{
+    // console.log(videoRef.current?.root)
+    const resizeObserver = new ResizeObserver(entries=>{
+      for(let entry of entries){
+        const { width, height } = entry.contentRect;
+        if(videoRef.current !== undefined){
+  
+          // console.log(videoHeight.current, videoWidth.current)
+          // console.log(height, width)
+          // console.log(videoHeight.current / videoWidth.current, height / width)
+          if(videoHeight.current / videoWidth.current <=  height / width){
+            setIsHorizontal.on()
+          }else{
+            setIsHorizontal.off()
+          }
+        }
+      }
+    })
+    
+    if(root){
+      resizeObserver.observe(root)
+    }
+    return ()=>{
+      resizeObserver.disconnect()
+    }
+    
+  },[root])
 
   return (
     <div
@@ -645,29 +682,29 @@ const InnerPlayer:React.FC<InnerPlayerProps> = ({
       tabIndex={-1}
       aria-label={title}
     >
-      <div className={css(styles.video)}>
-      <Video
-          ref={videoRef}
-          controls={ua.isMobile && isPlaybackStarted && !hideMobileControls}
-          paused={!isPlaying}
-          volume={volume}
-          loop={loop}
-          onPlay={handleVideoPlay}
-          onPause={handleVideoPause}
-          onEnded={handleVideoEnded}
-          onLoadedData={handleVideoLoadedData}
-          onError={handleVideoError}
-          onLoadingChange={handleLoadingChange}
-          onDurationUpdate={handleVideoDurationChange}
-          onCurrentTimeUpdate={handleVideoTimeUpdate}
-          onSeeking={handleVideoSeeking}
-          onSeeked={handleVideoSeeked}
-          onProgressUpdate={handleVideoProgress}
-          // TODO: 变更 prop 名称
-          onEvent={emitEvent as any}
-          useMSE={useMSE}
-          useAutoQuality={useAutoQuality}
-        />
+      <div className={css(styles.video, isHorizontal ? styles.videoHorizontal : styles.videoVertical)}>
+          <Video
+              ref={videoRef}
+              controls={ua.isMobile && isPlaybackStarted && !hideMobileControls}
+              paused={!isPlaying}
+              volume={volume}
+              loop={loop}
+              onPlay={handleVideoPlay}
+              onPause={handleVideoPause}
+              onEnded={handleVideoEnded}
+              onLoadedData={handleVideoLoadedData}
+              onError={handleVideoError}
+              onLoadingChange={handleLoadingChange}
+              onDurationUpdate={handleVideoDurationChange}
+              onCurrentTimeUpdate={handleVideoTimeUpdate}
+              onSeeking={handleVideoSeeking}
+              onSeeked={handleVideoSeeked}
+              onProgressUpdate={handleVideoProgress}
+              // TODO: 变更 prop 名称
+              onEvent={emitEvent as any}
+              useMSE={useMSE}
+              useAutoQuality={useAutoQuality}
+          />
       </div>
       {hideMobileControls && isPlaybackStarted && isLoading && (
         <div className={css(styles.loader)}>

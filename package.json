@@ -10,7 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.7",
+    "@types/lodash-es": "^4.17.11",
     "antd": "^5.11.1",
+    "axios": "^1.6.2",
+    "element-ui": "^2.15.14",
     "eventemitter3": "^5.0.1",
     "fs": "^0.0.1-security",
     "griffith": "^1.30.0",
@@ -18,10 +22,14 @@
     "hls.js": "^1.4.12",
     "isomorphic-bigscreen": "^2.0.5",
     "js-binary": "^1.2.0",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
     "niplayer": "^1.4.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.18.0"
+    "react-redux": "^8.1.3",
+    "react-router-dom": "^6.18.0",
+    "recoil": "^0.7.7"
   },
   "devDependencies": {
     "@types/node": "^20.7.1",

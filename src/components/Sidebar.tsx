@@ -2,6 +2,8 @@ import React from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
+import { useNavigate } from 'react-router-dom';
+
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -31,16 +33,27 @@ const items: MenuProps['items'] = [
   { type: 'divider' },
   getItem('朋友', 'friends', <SettingOutlined />),
   { type: 'divider' },
-  getItem('我的', 'myInfo', <SettingOutlined />),
+  getItem('我的', 'mine', <SettingOutlined />),
   { type: 'divider' },
 
 ];
 
 const Sidebar: React.FC = () => {
   const onClick: MenuProps['onClick'] = (e) => {
-    console.log('click ', e);
+    const { key } = e
+    if(key === 'home'){
+      navigate('/')
+    }else if(key === 'recommend'){
+      navigate('/recommend')
+    }else if(key === 'subscription'){
+      navigate('subscription')
+    }else if(key === 'friends'){
+      navigate('friends')
+    }else if(key === 'mine'){
+      navigate('mine')
+    }
   };
-
+  const navigate = useNavigate()
   return (
     <Menu
       onClick={onClick}

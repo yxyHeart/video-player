@@ -1,5 +1,5 @@
 import React from "react";
-import { PlaySource } from "@/types";
+import { PlaySource } from "../types";
 
 type NativeVideoProps = React.HTMLProps<HTMLVideoElement>
 type VideoProps = NativeVideoProps & {

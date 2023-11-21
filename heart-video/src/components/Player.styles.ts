@@ -56,6 +56,7 @@ export default StyleSheet.create({
     ':focus': {
       outline: 'none',
     },
+
   },
 
   fullScreened: {
@@ -105,8 +106,21 @@ export default StyleSheet.create({
   },
 
   video: {
-    width: '100%',
-    height: '100%',
+    position:'absolute',
+    // width: '100%',
+    // height: '100%',
+
+  },
+
+  videoHorizontal:{
+    top: '50%', 
+    transform: 'translateY(-50%)',
+    width:'100%',
+  },
+  videoVertical:{
+    left: '50%',
+    transform:'translateX(-50%)',
+    height:'100%'
   },
 
   overlay: {

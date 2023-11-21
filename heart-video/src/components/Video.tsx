@@ -325,6 +325,7 @@ class Video extends Component<VideoProps>{
     }
 
     render(){
+       
         const {
             src,
             controls,

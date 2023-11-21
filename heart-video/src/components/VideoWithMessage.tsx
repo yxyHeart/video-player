@@ -92,11 +92,11 @@ const VideoWithMessage = React.forwardRef<
 
     return (
         <Video 
-        {...otherProps}
-        {...newProps}
-        ref={ref}
-        style={{objectFit}}
-        onLoadedMetadata={handleOnLoadedMetadata}
+            {...otherProps}
+            {...newProps}
+            ref={ref}
+            style={{objectFit}}
+            onLoadedMetadata={handleOnLoadedMetadata}
         />
     )
 })
