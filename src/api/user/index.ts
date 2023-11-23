@@ -16,3 +16,5 @@ export function userRegisterApi(data:User.GetUserRegisterData){
         data
     })
 }
+
+export { default as FileUploader } from './upload'

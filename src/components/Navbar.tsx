@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Button, Divider, Flex, Radio, Menu, MenuProps} from 'antd';
 import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { DownloadOutlined ,AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import { NavbarItem } from '@/components/Items/NavbarItem';
+import NavbarPostButton from '@/components/NavbarPostButton';
+
 
 type MenuItem = Required<MenuProps>['items'][number];
 const Navbar: React.FC = () => {
@@ -23,15 +26,21 @@ const Navbar: React.FC = () => {
       }
     const items: MenuProps['items'] = [
    
-        getItem('充值', 'home', <SettingOutlined />),
+        getItem(
+          <NavbarItem icon={<SettingOutlined />} text={'充值'} />,
+          'topUp'
+        ),
        
-        getItem('客户端', 'recommend', <SettingOutlined />),
+        getItem(
+          <NavbarItem icon={<SettingOutlined />} text={'客户端'} />,
+          'client', 
+        ),
        
-        getItem('通知', 'topUp', <SettingOutlined />),
+        getItem(<NavbarItem icon={<SettingOutlined />} text={'通知'} />, 'notification'),
 
-        getItem('私信', 'chat', <SettingOutlined />),
+        getItem(<NavbarItem icon={<SettingOutlined />} text={'私信'} />, 'chat'),
 
-        getItem('投稿', 'post', <SettingOutlined />),
+        getItem(<NavbarPostButton />, 'post'),
   
       ];
     return (

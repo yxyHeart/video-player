@@ -5,23 +5,21 @@ import { useEffect, useState } from 'react';
 export default function Recommend() {
     useEffect(()=>{
         const handleScroll = (event:WheelEvent) => {
-            // 阻止默认滚动行为
-            event.preventDefault();
-      
+            event.preventDefault()
             if (event.deltaY > 0) {
 
-                setCurSourceIndex(2)
+              setCurSourceIndex(curSourceIndex-1)
               console.log('向下滚动');
 
             } else {
-
-                setCurSourceIndex(0)
+              console.log('向下滚动');
+              setCurSourceIndex(curSourceIndex+1)
             }
         };
-        window.addEventListener('wheel', handleScroll);
+        window.addEventListener('wheel', handleScroll, {passive:false});
 
         return ()=>{
-            window.removeEventListener('wheel', handleScroll)
+            window.removeEventListener('wheel', handleScroll,)
         }
     },[])
 
@@ -51,7 +49,7 @@ export default function Recommend() {
         <div className='flex justify-around items-center h-[100%] w-[100%]'>
             <Player sources={sources[curSourceIndex]} id={'1'} initialObjectFit='fill' />
             
-            <VideoSwitch />
+            <VideoSwitch curSourceIndex={curSourceIndex} setCurSourceIndex={setCurSourceIndex}/>
         </div>
          
         

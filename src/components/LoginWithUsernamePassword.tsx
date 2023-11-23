@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
 import { userLoginApi } from '@/api/user';
-import { useSetRecoilState } from 'recoil';
-import { isLoginState } from '@/store/UserStore';
+import { login, logout, setAvatar } from '@/store/userSlice';
+import { useAppDispatch } from '@/hooks/useRedux';
 import { setToken } from '@/utils/cache/local-storage';
 import { message } from 'antd';
 
@@ -16,14 +16,16 @@ type FieldType = {
 };
 
 const LoginWithUsernamePassword: React.FC = () => {
-  const setIsLoginState = useSetRecoilState(isLoginState);
+  const dispatch = useAppDispatch()
   const onFinish = async (values: any) => {
     const {username, password} = values
     await userLoginApi({username,password})
       .then((res)=>{
-        const {data:token} =res
-        setIsLoginState(true)
+        console.log(res)
+        const {username,avatar,token} =res.data
+        dispatch(login())
         setToken(token)
+        dispatch(setAvatar(avatar))
       })
       .catch((error)=>{
         message.info(error)

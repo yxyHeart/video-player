@@ -5,6 +5,9 @@ import type { SizeType } from 'antd/es/config-provider/SizeContext';
 import { CompoundedComponent } from 'antd/es/float-button/interface';
 import { CardInterface } from 'antd/es/card';
 import LoginWithUsernamePassword from '@/components/LoginWithUsernamePassword';
+import sleep from '@/utils/sleep';
+import UserInfoCard from '@/components/UserInfoCard';
+import LoginDialogue from '@/components/LoginDialogue';
 
 
 const LoginButton: React.FC = () => {
@@ -12,33 +15,55 @@ const LoginButton: React.FC = () => {
     const cardRef:React.Ref<HTMLDivElement> | undefined = useRef<HTMLDivElement>(null)
     const buttonRef:React.Ref<HTMLElement> | undefined = useRef<HTMLElement>(null)
     const [open, setOpen] = useState(false);
-    const [confirmLoading, setConfirmLoading] = useState(false);
-    const [loginMethod, setLoginMethod] = useState<number>(3)
-  
+    const loginMethod = useRef<number>(3)
+    const isMouseOnCard = useRef<boolean>(false)
     const showModal = () => {
       setOpen(true);
     };
     const handleCancel = () => {
         console.log('Clicked cancel button');
         setOpen(false);
-      };
+    };
 
     useEffect(()=>{
-        const handleMouseOver = function(){
+        if(cardRef.current){
+            cardRef.current.style.display = 'none'
+        }
+        const handleMouseOverButton = function(){
             if(cardRef.current){
                 cardRef.current.style.display = 'block'
             }
         }
-        const handleMouseOut = function(){
+        const handleMouseOutButton = async function(){
             if(cardRef.current){
+                await sleep(1000)
+                if(isMouseOnCard.current) return
+                cardRef.current.style.display = 'none'
+                isMouseOnCard.current = false
+            }
+        }
+        const handleMouseOverCard = function(){
+            if(cardRef.current){
+                isMouseOnCard.current = true
+                cardRef.current.style.display = 'block'
+            }
+        }
+        const handleMouseOutCard = function(){
+            if(cardRef.current){
+                isMouseOnCard.current = false
                 cardRef.current.style.display = 'none'
             }
         }
-        buttonRef.current?.addEventListener('mouseover',handleMouseOver)
-        buttonRef.current?.addEventListener('mouseout', handleMouseOut)
+
+        buttonRef.current?.addEventListener('mouseover',handleMouseOverButton)
+        buttonRef.current?.addEventListener('mouseout', handleMouseOutButton)
+        cardRef.current?.addEventListener('mouseover',handleMouseOverCard)
+        cardRef.current?.addEventListener('mouseout',handleMouseOutCard)
         return ()=>{
-            buttonRef.current?.removeEventListener('mouseover',handleMouseOver)
-            buttonRef.current?.removeEventListener('mouseout',handleMouseOut)
+            buttonRef.current?.removeEventListener('mouseover',handleMouseOverButton)
+            buttonRef.current?.removeEventListener('mouseout',handleMouseOutButton)
+            cardRef.current?.removeEventListener('mouseover',handleMouseOverCard)
+            cardRef.current?.removeEventListener('mouseout',handleMouseOutCard)
         }
     },[])
     return (
@@ -46,88 +71,9 @@ const LoginButton: React.FC = () => {
             <Button ref={buttonRef} type="primary" icon={<DownloadOutlined />} size={size} onClick={showModal}>
                 登录
             </Button>
-            <Card 
-                ref={cardRef} 
-                title="登录后即可观看喜欢、收藏的视频" 
-                bordered={false} 
-                style={{ 
-                    width: '20%', 
-                    position:'absolute', 
-                    
-                    right:'1%', 
-                    top:'8%', 
-                    zIndex:1,
-                   
-                }}>
-                    <div className='flex items-center justify-around'>
-                        <div className='flex flex-col items-center'>
-                            <VideoCameraTwoTone />
-                            <p>我的作品</p>
-                        </div>
-                        <div className='flex flex-col items-center'>
-                            <HeartTwoTone/>
-                            <p>我的喜欢</p>
-                        </div>
-                        
-                        <div className='flex flex-col items-center'>
-                            <StarTwoTone />
-                            <p>我的收藏</p>
-                        </div>
-                        <div className='flex flex-col items-center'>
-                            <EyeTwoTone />
-                            <p>观看历史</p>
-                        </div>
-                    </div>
-                
-            </Card>
+            <UserInfoCard ref={cardRef} />
+            <LoginDialogue open={open} setOpen={setOpen}/>
 
-            <Modal
-                title="Title"
-                open={open}
-                okButtonProps={{ className:"hidden" }}
-                cancelButtonProps={{ className:"hidden" }}
-                onCancel={handleCancel}
-                
-            >   
-                <div className='flex flex-col items-center content-between'>
-                    <Segmented
-                        onChange={(value)=>{setLoginMethod(Number(value))}}
-                        style={{}}
-                        options={[
-                            {
-                            label: (
-                                <div style={{ padding: 8 }}>
-                                <div>扫码登录</div>
-                                </div>
-                            ),
-                            value: '1',
-                            },
-                            {
-                            label: (
-                                <div style={{ padding: 8 }}>
-                                <div>验证码登录</div>
-                                </div>
-                            ),
-                            value: '2',
-                            },
-                            {
-                            label: (
-                                <div style={{ padding: 8 }}>
-                                <div>密码登录</div>
-                                </div>
-                            ),
-                            value: '3',
-                            },
-
-                        ]}
-                    />
-                    <div className='mt-[30px]'>
-                        {loginMethod===1 && <QRCode value={'https://ant.design/' || '-'} />}
-                        {loginMethod===2 && <LoginWithUsernamePassword />}
-                        {loginMethod===3 && <LoginWithUsernamePassword />}
-                    </div>
-                </div>
-            </Modal>
         </>
     );
 };

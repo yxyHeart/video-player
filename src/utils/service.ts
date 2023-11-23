@@ -101,13 +101,14 @@ function createService() {
 
 /** 创建请求方法 */
 function createRequest(service: AxiosInstance) {
-  return function <T>(config: AxiosRequestConfig): Promise<T> {
+  return function <T>(config: AxiosRequestConfig,contentType:string="application/json"): Promise<T> {
+    console.log(config)
     const token = getToken()
     const defaultConfig = {
       headers: {
         // 携带 Token
         Authorization: token ? `Bearer ${token}` : undefined,
-        "Content-Type": "application/json"
+        "Content-Type":contentType
       },
       timeout: 5000,
       baseURL: import.meta.env.VITE_BASE_API,
